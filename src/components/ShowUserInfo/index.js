@@ -1,27 +1,41 @@
-import React from "react";
-import "./ShowUserInfo.module.css";
-import { useState } from "react";
-const ShowUserInfo = (props) => {
-  const { name, age, src } = props;
-  let [count, setCount] = useState(0);
-  return (
-    <>
-      <div>
-        <img
-          src={src}
-          alt=""
-          className="user-photo"
-          width="200px"
-          height="300px"
-        />
-      </div>
-      <p>
-        My name is {name} I am {age} years old
-      </p>
-      <p>likes {count}</p>
-      <button onClick={() => setCount(++count)}>Like</button>
-    </>
-  );
-};
+import React, { Component, useState } from "react";
+
+class ShowUserInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+    };
+  }
+
+  increaseLikeCount = (e) => {
+    const { count } = this.state;
+    this.setState({ count: count + 1 });
+  };
+
+  render() {
+    const { count } = this.state;
+    const { name, age, src } = this.props;
+
+    return (
+      <>
+        <div>
+          <img
+            src={src}
+            alt=""
+            className="user-photo"
+            width="200px"
+            height="300px"
+          />
+        </div>
+        <p>
+          My name is {name} I am {age} years old
+        </p>
+        <p>likes {count}</p>
+        <button onClick={this.increaseLikeCount}>Like</button>
+      </>
+    );
+  }
+}
 
 export default ShowUserInfo;
